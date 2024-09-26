@@ -12,11 +12,11 @@ pipeline {
                 echo 'Running unit and integration tests...'
                 // Example test tool: JUnit
                 script {
-                    currentBuild.result = 'SUCCESS'
                     emailext(
                         to: 'manyamahajan3003@gmail.com',
                         subject: "Build ${currentBuild.fullDisplayName} - Unit and Integration Tests",
-                        body: """<p>The Unit and Integration Tests stage has completed with status: ${currentBuild.result}.</p>""",
+                        body: """<p>The Unit and Integration Tests stage has completed successfully.</p>
+                                <p>Check the attached logs for details.</p>""",
                         attachLog: true
                     )
                 }
@@ -33,11 +33,11 @@ pipeline {
                 echo 'Performing security scan...'
                 // Example security tool: OWASP Dependency-Check
                 script {
-                    currentBuild.result = 'SUCCESS'
                     emailext(
                         to: 'manyamahajan3003@gmail.com',
                         subject: "Build ${currentBuild.fullDisplayName} - Security Scan",
-                        body: """<p>The Security Scan stage has completed with status: ${currentBuild.result}.</p>""",
+                        body: """<p>The Security Scan stage has completed successfully.</p>
+                                <p>Check the attached logs for details.</p>""",
                         attachLog: true
                     )
                 }
@@ -67,8 +67,8 @@ pipeline {
             script {
                 emailext(
                     to: 'manyamahajan3003@gmail.com',
-                    subject: "Jenkins Build Successful",
-                    body: "The build was successful.",
+                    subject: "Jenkins Build Successful - ${currentBuild.fullDisplayName}",
+                    body: """<p>The build was successful.</p><p>Check the attached logs for details.</p>""",
                     attachLog: true
                 )
             }
@@ -77,12 +77,13 @@ pipeline {
             script {
                 emailext(
                     to: 'manyamahajan3003@gmail.com',
-                    subject: "Jenkins Build Failed",
-                    body: "The build failed.",
+                    subject: "Jenkins Build Failed - ${currentBuild.fullDisplayName}",
+                    body: """<p>The build has failed.</p><p>Check the attached logs for details.</p>""",
                     attachLog: true
                 )
             }
         }
     }
 }
+
 
